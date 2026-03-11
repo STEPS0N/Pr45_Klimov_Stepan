@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.AspNetCore.SwaggerUI;
-using System.IO;
+﻿using Microsoft.OpenApi.Models;
 
 namespace API_Klimov
 {
@@ -23,7 +15,7 @@ namespace API_Klimov
                     Title = "Руководство для использования запросов",
                     Description = "Полное руководство для использования запросов находящихся в проекте"
                 });
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "ASP_GET.xml");
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "API_Klimov.xml");
                 c.IncludeXmlComments(filePath);
             });
         }

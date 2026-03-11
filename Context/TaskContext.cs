@@ -4,7 +4,7 @@ namespace API_Klimov.Context
 {
     public class TaskContext : DbContext
     {
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Model.Task> Tasks { get; set; }
 
         public TaskContext()
         {
@@ -16,6 +16,7 @@ namespace API_Klimov.Context
         {
             optionsBuilder.UseMySql("server=localhost;" +
                 "uid=root;" +
+                "port=3307;" +
                 "pwd=;" +
                 "database=TaskManager",
                 new MySqlServerVersion(new Version(8, 0, 11)));

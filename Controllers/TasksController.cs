@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 namespace API_Klimov.Controllers
 {
     [Route("api/TasksController")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class TasksController : Controller
     {
         ///<summary>

@@ -16,17 +16,24 @@ namespace API_Klimov.Controllers
         /// <returns>Данный метод прднозначен для авторизации пользователя на сайте</returns>
         /// <response code="200">Пользователь успешно авторизован</response>
         /// <response code="403">Ошибка запроса данные не указаны</response>
+        /// <response code="401">Данный пользователь не авторизован</response>
         /// <response code="500">При выполнении запроса возникли ошибки</response>
         [Route("SignIn")]
         [HttpPost]
         [ProducesResponseType(typeof(Users), 200)]
         [ProducesResponseType(403)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(500)]
 
         public ActionResult SignIn([FromForm] string Login, [FromForm] string Password)
         {
+            UsersContext usersContext = new UsersContext();
+
             if (Login == null || Password == null)
                 return StatusCode(403);
+
+            if (!usersContext.Users.Any(x => x.Login == Login && x.Password == Password))
+                return StatusCode(401);
 
             try
             {

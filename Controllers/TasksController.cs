@@ -1,8 +1,5 @@
 ﻿using API_Klimov.Context;
 using Microsoft.AspNetCore.Mvc;
-using API_Klimov.Model;
-using API_Klimov.Context;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace API_Klimov.Controllers
 {

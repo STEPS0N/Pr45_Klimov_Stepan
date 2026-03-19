@@ -1,4 +1,5 @@
-﻿using API_Klimov.Context;
+﻿using System.Threading.Tasks;
+using API_Klimov.Context;
 using API_Klimov.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -124,6 +125,54 @@ namespace API_Klimov.Controllers
                 taskContext.Tasks.Add(task);
                 taskContext.SaveChanges();
                 return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        ///<summary>
+        /// Метод обновления задачи
+        /// </summary>
+        /// <param name="Id">Идентификатор задачи</param>
+        /// <param name="Name">Название задачи</param>
+        /// <param name="Priority">Приоритет</param>
+        /// <param name="DateExecute">Дата выполнения</param>
+        /// <param name="Comment">Комментарий</param>
+        /// <param name="Done">Статус выполнения</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод добавляет задачу в базу данных</remarks>
+        [Route("Update")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public ActionResult Update([FromForm] int Id, [FromForm] string Name, [FromForm] string Priority,
+            [FromForm] DateTime DateExecute, [FromForm] string Comment, [FromForm] bool Done)
+        {
+            try
+            {
+                TaskContext taskContext = new TaskContext();
+
+                var tasks = taskContext.Tasks.FirstOrDefault(x => x.Id == Id);
+
+                if (tasks != null)
+                {
+                    tasks.Name = Name;
+                    tasks.Priority = Priority;
+                    tasks.DateExecute = DateExecute;
+                    tasks.Comment = Comment;
+                    tasks.Done = Done;
+
+                    taskContext.SaveChanges();
+                    return StatusCode(200);
+                }
+                else
+                {
+                    return StatusCode(500);
+                }
             }
             catch
             {

@@ -1,4 +1,5 @@
 ﻿using API_Klimov.Context;
+using API_Klimov.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Klimov.Controllers
@@ -98,6 +99,33 @@ namespace API_Klimov.Controllers
                 return Json(Task);
             }
             catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        ///<summary>
+        /// Метод добавления задачи
+        /// </summary>
+        /// <param name="task">Данные о задачи</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод добавляет задачу в базу данных</remarks>
+        [Route("Add")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public ActionResult Add([FromForm] Model.Task task)
+        {
+            try
+            {
+                TaskContext taskContext = new TaskContext();
+                taskContext.Tasks.Add(task);
+                taskContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
             {
                 return StatusCode(500);
             }

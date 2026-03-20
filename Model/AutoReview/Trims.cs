@@ -17,7 +17,5 @@ namespace API_Klimov.Model.AutoReview
         /// Уровень оснащения
         /// </summary>
         public string Equipment { get; set; }
-
-        public virtual ICollection<Cars> Cars { get; set; }
     }
 }

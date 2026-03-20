@@ -13,7 +13,5 @@ namespace API_Klimov.Model.AutoReview
         /// Тип кузова
         /// </summary>
         public string Name { get; set; }
-
-        public virtual ICollection<Cars> Cars { get; set; }
     }
 }

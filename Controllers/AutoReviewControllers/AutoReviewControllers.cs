@@ -20,7 +20,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddBodyType([FromForm] Model.AutoReview.BodyTypes bodyType)
+        public ActionResult AddBodyType([FromBody] Model.AutoReview.BodyTypes bodyType)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddBrand([FromForm] Model.AutoReview.Brands brand)
+        public ActionResult AddBrand([FromBody] Model.AutoReview.Brands brand)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddBrand([FromForm] Model.AutoReview.Engines engine)
+        public ActionResult AddEngine([FromBody] Model.AutoReview.Engines engine)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddModel([FromForm] Model.AutoReview.Models model)
+        public ActionResult AddModel([FromBody] Model.AutoReview.Models model)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddModel([FromForm] Model.AutoReview.Owners owner)
+        public ActionResult AddOwner([FromBody] Model.AutoReview.Owners owner)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddTransmission([FromForm] Model.AutoReview.Transmissions transmission)
+        public ActionResult AddTransmission([FromBody] Model.AutoReview.Transmissions transmission)
         {
             try
             {
@@ -182,7 +182,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddTrim([FromForm] Model.AutoReview.Trims trim)
+        public ActionResult AddTrim([FromBody] Model.AutoReview.Trims trim)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace API_Klimov.Controllers.AutoReviewControllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public ActionResult AddCar([FromForm] Model.AutoReview.Cars car)
+        public ActionResult AddCar([FromBody] Model.AutoReview.Cars car)
         {
             try
             {
@@ -224,52 +224,315 @@ namespace API_Klimov.Controllers.AutoReviewControllers
             }
         }
 
-        /////<summary>
-        ///// Метод обновления задачи
-        ///// </summary>
-        ///// <param name="Id">Идентификатор задачи</param>
-        ///// <param name="Name">Название задачи</param>
-        ///// <param name="Priority">Приоритет</param>
-        ///// <param name="DateExecute">Дата выполнения</param>
-        ///// <param name="Comment">Комментарий</param>
-        ///// <param name="Done">Статус выполнения</param>
-        ///// <returns>Статус выполнения запроса</returns>
-        ///// <remarks>Данный метод добавляет задачу в базу данных</remarks>
-        //[Route("Update")]
-        //[HttpPut]
-        //[ApiExplorerSettings(GroupName = "v3")]
-        //[ProducesResponseType(200)]
-        //[ProducesResponseType(500)]
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления кузова
+        /// </summary>
+        /// <param name="id">Код кузова</param>
+        /// <param name="bodyType">Обновленные данные о кузове</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные кузова в базе данных</remarks>
+        [Route("UpdateBodyType/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
 
-        //public ActionResult Update([FromForm] int Id, [FromForm] string Name, [FromForm] string Priority,
-        //    [FromForm] DateTime DateExecute, [FromForm] string Comment, [FromForm] bool Done)
-        //{
-        //    try
-        //    {
-        //        TaskContext taskContext = new TaskContext();
+        public ActionResult UpdateBodyType(int id, [FromBody] Model.AutoReview.BodyTypes bodyType)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingBodyType = autoReviewContext.BodyTypes.Find(id);
 
-        //        var tasks = taskContext.Tasks.FirstOrDefault(x => x.Id == Id);
+                if (existingBodyType == null)
+                {
+                    return StatusCode(404, "Кузов с указанным ID не найден");
+                }
 
-        //        if (tasks != null)
-        //        {
-        //            tasks.Name = Name;
-        //            tasks.Priority = Priority;
-        //            tasks.DateExecute = DateExecute;
-        //            tasks.Comment = Comment;
-        //            tasks.Done = Done;
+                existingBodyType.Name = bodyType.Name;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
 
-        //            taskContext.SaveChanges();
-        //            return StatusCode(200);
-        //        }
-        //        else
-        //        {
-        //            return StatusCode(500);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        return StatusCode(500);
-        //    }
-        //}
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления марки
+        /// </summary>
+        /// <param name="id">Код марки</param>
+        /// <param name="brand">Обновленные данные о марке</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные марки в базе данных</remarks>
+        [Route("UpdateBrand/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateBrand(int id, [FromBody] Model.AutoReview.Brands upBrand)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingBrand = autoReviewContext.Brands.Find(id);
+
+                if (existingBrand == null)
+                {
+                    return StatusCode(404, "Марка с указанным ID не найдена");
+                }
+
+                existingBrand.Name = upBrand.Name;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления двигателя
+        /// </summary>
+        /// <param name="id">Код двигателя</param>
+        /// <param name="engine">Обновленные данные о двигателе</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные двигателя в базе данных</remarks>
+        [Route("UpdateEngine/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateEngine(int id, [FromBody] Model.AutoReview.Engines engine)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingEngine = autoReviewContext.Engines.Find(id);
+
+                if (existingEngine == null)
+                {
+                    return StatusCode(404, "Двигатель с указанным ID не найден");
+                }
+
+                existingEngine.Type = engine.Type;
+                existingEngine.Volume = engine.Volume;
+                existingEngine.Power = engine.Power;
+                existingEngine.FuelConsumption = engine.FuelConsumption;
+                existingEngine.Torque = engine.Torque;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления модели авто
+        /// </summary>
+        /// <param name="id">Код модели</param>
+        /// <param name="model">Обновленные данные о модели авто</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные модели в базе данных</remarks>
+        [Route("UpdateModel/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateModel(int id, [FromBody] Model.AutoReview.Models model)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingModel = autoReviewContext.Models.Find(id);
+
+                if (existingModel == null)
+                {
+                    return StatusCode(404, "Модель с указанным ID не найдена");
+                }
+
+                existingModel.Name = model.Name;
+                existingModel.Generation = model.Generation;
+                existingModel.Class = model.Class;
+                existingModel.BrandId = model.BrandId;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления владельца авто
+        /// </summary>
+        /// <param name="id">Код владельца</param>
+        /// <param name="owner">Обновленные данные о владельце авто</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные владельца в базе данных</remarks>
+        [Route("UpdateOwner/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateOwner(int id, [FromBody] Model.AutoReview.Owners owner)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingOwner = autoReviewContext.Owners.Find(id);
+
+                if (existingOwner == null)
+                {
+                    return StatusCode(404, "Владелец с указанным ID не найден");
+                }
+
+                existingOwner.Email = owner.Email;
+                existingOwner.LastName = owner.LastName;
+                existingOwner.FirstName = owner.FirstName;
+                existingOwner.Phone = owner.Phone;
+                existingOwner.Role = owner.Role;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления трансмиссии
+        /// </summary>
+        /// <param name="id">Код трансмиссии</param>
+        /// <param name="transmission">Обновленные данные о трансмиссии</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные трансмиссии в базе данных</remarks>
+        [Route("UpdateTransmission/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateTransmission(int id, [FromBody] Model.AutoReview.Transmissions transmission)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingTransmission = autoReviewContext.Transmissions.Find(id);
+
+                if (existingTransmission == null)
+                {
+                    return StatusCode(404, "Трансмиссия с указанным ID не найдена");
+                }
+
+                existingTransmission.GearboxType = transmission.GearboxType;
+                existingTransmission.DriveType = transmission.DriveType;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления комплектации
+        /// </summary>
+        /// <param name="id">Код комплектации</param>
+        /// <param name="trim">Обновленные данные о комплектации</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные комплектации в базе данных</remarks>
+        [Route("UpdateTrim/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateTrim(int id, [FromBody] Model.AutoReview.Trims trim)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingTrim = autoReviewContext.Trims.Find(id);
+
+                if (existingTrim == null)
+                {
+                    return StatusCode(404, "Комплектация с указанным ID не найдена");
+                }
+
+                existingTrim.Name = trim.Name;
+                existingTrim.Equipment = trim.Equipment;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [ApiExplorerSettings(GroupName = "v3")]
+        ///<summary>
+        /// Метод обновления авто
+        /// </summary>
+        /// <param name="id">Код авто</param>
+        /// <param name="car">Обновленные данные об авто</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод обновляет данные авто в базе данных</remarks>
+        [Route("UpdateCar/{id}")]
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+
+        public ActionResult UpdateCar(int id, [FromBody] Model.AutoReview.Cars car)
+        {
+            try
+            {
+                AutoReviewContext autoReviewContext = new AutoReviewContext();
+                var existingCar = autoReviewContext.Cars.Find(id);
+
+                if (existingCar == null)
+                {
+                    return StatusCode(404, "Автомобиль с указанным ID не найден");
+                }
+
+                existingCar.Year = car.Year;
+                existingCar.Price = car.Price;
+                existingCar.VIN = car.VIN;
+                existingCar.Mileage = car.Mileage;
+                existingCar.Condition = car.Condition;
+                existingCar.ModelId = car.ModelId;
+                existingCar.EngineId = car.EngineId;
+                existingCar.TransmissionId = car.TransmissionId;
+                existingCar.TrimId = car.TrimId;
+                existingCar.OwnerId = car.OwnerId;
+                existingCar.BodyTypeId = car.BodyTypeId;
+                autoReviewContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }

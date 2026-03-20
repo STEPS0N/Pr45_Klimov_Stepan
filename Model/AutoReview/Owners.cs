@@ -29,7 +29,5 @@ namespace API_Klimov.Model.AutoReview
         /// Роль
         /// </summary>
         public string Role { get; set; }
-
-        public virtual ICollection<Cars> Cars { get; set; }
     }
 }

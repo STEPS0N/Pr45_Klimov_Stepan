@@ -17,7 +17,5 @@ namespace API_Klimov.Model.AutoReview
         /// Тип привода
         /// </summary>
         public string DriveType { get; set; }
-
-        public virtual ICollection<Cars> Cars { get; set; }
     }
 }

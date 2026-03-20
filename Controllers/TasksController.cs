@@ -105,6 +105,7 @@ namespace API_Klimov.Controllers
             }
         }
 
+        [ApiExplorerSettings(GroupName = "v3")]
         ///<summary>
         /// Метод добавления задачи
         /// </summary>
@@ -113,7 +114,6 @@ namespace API_Klimov.Controllers
         /// <remarks>Данный метод добавляет задачу в базу данных</remarks>
         [Route("Add")]
         [HttpPut]
-        [ApiExplorerSettings(GroupName = "v3")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
@@ -132,6 +132,7 @@ namespace API_Klimov.Controllers
             }
         }
 
+        [ApiExplorerSettings(GroupName = "v3")]
         ///<summary>
         /// Метод обновления задачи
         /// </summary>
@@ -145,7 +146,6 @@ namespace API_Klimov.Controllers
         /// <remarks>Данный метод добавляет задачу в базу данных</remarks>
         [Route("Update")]
         [HttpPut]
-        [ApiExplorerSettings(GroupName = "v3")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 

@@ -54,23 +54,5 @@ namespace API_Klimov.Model.AutoReview
         /// Код кузова
         /// </summary>
         public int BodyTypeId { get; set; }
-
-        [ForeignKey("ModelId")]
-        public virtual Models Model { get; set; }
-
-        [ForeignKey("EngineId")]
-        public virtual Engines Engine { get; set; }
-
-        [ForeignKey("TransmissionId")]
-        public virtual Transmissions Transmission { get; set; }
-
-        [ForeignKey("TrimId")]
-        public virtual Trims Trim { get; set; }
-
-        [ForeignKey("OwnerId")]
-        public virtual Owners Owner { get; set; }
-
-        [ForeignKey("BodyTypeId")]
-        public virtual BodyTypes BodyType { get; set; }
     }
 }

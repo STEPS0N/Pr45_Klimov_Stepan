@@ -29,7 +29,5 @@ namespace API_Klimov.Model.AutoReview
         /// Крутящий момент
         /// </summary>
         public int Torque { get; set; }
-
-        public virtual ICollection<Cars> Cars { get; set; }
     }
 }

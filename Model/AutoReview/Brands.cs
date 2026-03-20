@@ -25,7 +25,5 @@ namespace API_Klimov.Model.AutoReview
         /// Описание
         /// </summary>
         public string Description { get; set; }
-
-        public virtual ICollection<Models> Models { get; set; }
     }
 }

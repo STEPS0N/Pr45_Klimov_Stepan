@@ -26,11 +26,5 @@ namespace API_Klimov.Model.AutoReview
         /// Код марки
         /// </summary>
         public int BrandId { get; set; }
-
-        [ForeignKey("BrandId")]
-        public virtual Brands Brand { get; set; }
-
-        // Коллекция автомобилей этой модели
-        public virtual ICollection<Cars> Cars { get; set; }
     }
 }

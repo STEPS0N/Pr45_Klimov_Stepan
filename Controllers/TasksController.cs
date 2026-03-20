@@ -179,5 +179,39 @@ namespace API_Klimov.Controllers
                 return StatusCode(500);
             }
         }
+
+        [ApiExplorerSettings(GroupName = "v4")]
+        ///<summary>
+        /// Метод удаления задачи по ID
+        /// </summary>
+        /// <param name="Id">Код задачи</param>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод удаляет задачу из базы данных</remarks>
+        /// <response code="200">Задача успешно удалена</response>
+        /// <response code="500">При выполнении запроса возникли ошибки</response>
+        [Route("Delete")]
+        [HttpDelete]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public ActionResult Delete(int Id)
+        {
+            try
+            {
+                TaskContext taskContext = new TaskContext();
+
+                var tasks = taskContext.Tasks.FirstOrDefault(x => x.Id == Id);
+
+                taskContext.Tasks.Remove(tasks);
+                taskContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        
     }
 }

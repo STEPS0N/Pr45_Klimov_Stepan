@@ -30,6 +30,13 @@ namespace API_Klimov
                     Description = "Полное руководство для использования запросов находящихся в проекте"
                 });
 
+                c.SwaggerDoc("v4", new OpenApiInfo
+                {
+                    Version = "v4",
+                    Title = "Руководство для использования запросов",
+                    Description = "Полное руководство для использования запросов находящихся в проекте"
+                });
+
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "API_Klimov.xml");
                 c.IncludeXmlComments(filePath);
             });
@@ -46,6 +53,7 @@ namespace API_Klimov
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Запросы GET");
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "Запросы POST");
                 c.SwaggerEndpoint("/swagger/v3/swagger.json", "Запросы PUT");
+                c.SwaggerEndpoint("/swagger/v4/swagger.json", "Запросы DELETE");
             });
         }
 

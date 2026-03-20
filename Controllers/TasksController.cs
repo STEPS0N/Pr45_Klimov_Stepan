@@ -212,6 +212,34 @@ namespace API_Klimov.Controllers
             }
         }
 
-        
+        [ApiExplorerSettings(GroupName = "v4")]
+        ///<summary>
+        /// Метод очистки БД от данных
+        /// </summary>
+        /// <returns>Статус выполнения запроса</returns>
+        /// <remarks>Данный метод удаляет все данные из базы данных</remarks>
+        /// <response code="200">Задачи успешно удалены</response>
+        /// <response code="500">При выполнении запроса возникли ошибки</response>
+        [Route("DeleteAll")]
+        [HttpDelete]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public ActionResult DeleteAll()
+        {
+            try
+            {
+                TaskContext taskContext = new TaskContext();
+
+                taskContext.Tasks.RemoveRange(taskContext.Tasks);
+                taskContext.SaveChanges();
+
+                return StatusCode(200);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }
